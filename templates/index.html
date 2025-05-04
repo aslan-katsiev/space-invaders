@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Добро пожаловать в Space Invaders!</h1>
+{% if current_user.is_authenticated %}
+    <p>Вы вошли как {{ current_user.username }}. <a href="/game">Начать игру</a> или <a href="/logout">выйти</a>.</p>
+    <p>Ваш текущий рекорд: 
+        {% if current_user.record > 0 %}
+            {{ "%02d:%02d"|format((current_user.record//1000)//60, (current_user.record//1000)%60) }}
+        {% else %}
+            нет рекорда
+        {% endif %}
+    </p>
+{% else %}
+    <p><a href="/login">Войти</a> или <a href="/register">зарегистрироваться</a> чтобы начать играть.</p>
+{% endif %}
+{% endblock %}
